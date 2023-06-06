@@ -22,10 +22,9 @@ def get_train_data():  # 获取问题分类器的训练数据
     trainx = []
     trainy = []
     pathinfo = os.path.split(os.path.realpath(__file__))[0]  # 重新组装文件地址
-    # print(pathinfo)
     file_list = getfilelist(pathinfo + "/data/question")
     for f in file_list:
-        num = re.sub(r'\D', "", f)  # 获取文件名中的数字
+        num = re.sub(r'\D', "", f)  # 获取文件名中的数字（使用正则将非数字去除）
         if len(num) > 0:  # 读取
             label_num = num
             with open(f, "r", encoding="utf-8") as fr:
@@ -34,7 +33,6 @@ def get_train_data():  # 获取问题分类器的训练数据
                     word_list = list(jieba.cut(str(q).strip()))
                     trainx.append(" ".join(word_list))  # 加入训练集
                     trainy.append(label_num)
-    # print(trainx, trainy)
     return trainx, trainy
 
 

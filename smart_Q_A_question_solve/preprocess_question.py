@@ -28,7 +28,6 @@ class question:
         for one_mode in question_mode_list:
             mode_id, mode_str = str(one_mode).strip().split(":")
             self.question_mode_dict[int(mode_id)] = str(mode_str)
-        # print(self.question_mode_dict)
 
         # 创建问题模板对象
         self.questiontemplate = QuestionTemplate()
@@ -38,12 +37,11 @@ class question:
         question = [" ".join(list(jieba.cut(question)))]
         print("分词结果是：{0}".format(question))
         test_data = self.tv.transform(question).toarray()
-        # print("分类器的输入是：{0}".format(test_data))
         y_predict = model.predict(test_data)[0]
-        # print("question type:",y_predict)
         return y_predict
 
     def question_posseg(self):
+        # 进行问题的词性标注
         clean_question = re.sub("[\s+\.\!\/_,$%^*(+\"\')]+|[+——()?【】“”！，。？、~@#￥%……&*（）]+", "", self.raw_question)
         self.clean_question = clean_question
         question_seged = posseg.cut(str(clean_question))

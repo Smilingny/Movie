@@ -103,7 +103,7 @@ class QuestionTemplate:
 
         # 先获取电影名称
         movie_name = self.get_movie_name()
-        cql = "match (m:Movie) where m.title contains $movie return m.rating"
+        cql = "match (m:Movie) where m.title = $movie return m.rating"
         print("cql查询语句是：{0}".format(cql))
 
         ans = self.graph.search(cql, movie=movie_name)
@@ -122,7 +122,7 @@ class QuestionTemplate:
     def get_movie_release_date(self):  # 1:nm 上映时间
         print("问题模板是【1:nm 上映时间】")
         movie_name = self.get_movie_name()
-        cql = "match (m:Movie) where m.title contains $movie return m.releasedate"
+        cql = "match (m:Movie) where m.title = $movie return m.releasedate"
         print("cql查询语句是：{0}".format(cql))
 
         ans = self.graph.search(cql, movie=movie_name)
@@ -139,7 +139,7 @@ class QuestionTemplate:
     def get_movie_type(self):  # 2:nm 类型
         print("问题模板是【2:nm 类型】")
         movie_name = self.get_movie_name()
-        cql = "match (m:Movie)-[r:is]->(b) where m.title contains $movie return b.name"
+        cql = "match (m:Movie)-[r:is]->(b) where m.title = $movie return b.name"
         print("cql查询语句是：{0}".format(cql))
 
         ans = list(self.graph.search(cql, movie=movie_name))
@@ -157,7 +157,7 @@ class QuestionTemplate:
     def get_movie_introduction(self):  # 3:nm 简介
         print("问题模板是【3:nm 简介】")
         movie_name = self.get_movie_name()
-        cql = "match (m:Movie) where m.title contains $movie return m.introduction"
+        cql = "match (m:Movie) where m.title = $movie return m.introduction"
         print("cql查询语句是：{0}".format(cql))
 
         ans = self.graph.search(cql, movie=movie_name)
@@ -176,7 +176,7 @@ class QuestionTemplate:
     def get_movie_actorlist(self):  # 4:nm 演员列表
         print("问题模板是【4:nm 演员列表】")
         movie_name = self.get_movie_name()
-        cql = "match(a:Person)-[r:actedin]->(m:Movie) where m.title contains $movie return a.name"
+        cql = "match(a:Person)-[r:actedin]->(m:Movie) where m.title = $movie return a.name"
         print("cql查询语句是：{0}".format(cql))
 
         ans = list(self.graph.search(cql, movie=movie_name))
@@ -221,7 +221,7 @@ class QuestionTemplate:
         people_name = str(self.get_name("nr")[0])  # 单个查询只能有一个nr
         movietype = self.get_name("ng")  # 可以有多个类型限制
 
-        cql = f"match (p:Person)-[]->(m:Movie) where p.name contains '{people_name}' return m.title"
+        cql = f"match (p:Person)-[]->(m:Movie) where p.name = '{people_name}' return m.title"
         resultlist = list(self.graph.search(cql))
 
         if len(resultlist) == 0:
@@ -232,7 +232,7 @@ class QuestionTemplate:
         result = []
         for movie_name in resultlist:
             movie_name = str(movie_name).strip()
-            cql = f"match (m:Movie)-[r:is]->(g) where m.title contains '{movie_name}'return g.name"
+            cql = f"match (m:Movie)-[r:is]->(g) where m.title = '{movie_name}'return g.name"
             tmp_type = self.graph.search(cql)
             if tmp_type == 0:  # 无类型信息
                 continue

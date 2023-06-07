@@ -48,7 +48,7 @@ def train_model_NB(trainx, trainy):  # 训练分类器
     return tv
 
 
-def get_tv():  # 获得 TfidfVectorizer (fitted)
+def get_tv():
     tx, ty = get_train_data()
     tv = TfidfVectorizer()
     tv.fit_transform(tx).toarray()

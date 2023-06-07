@@ -13,7 +13,6 @@ from smart_Q_A_question_solve.question_template_solve import QuestionTemplate
 
 class question:
     def __init__(self):
-        # 初始化相关设置：得到分类器，读取问题模板，连接数据库
         self.path_info = os.path.split(os.path.realpath(__file__))[0]  # python包位置
         mydict = self.path_info + "/data/dictbasicinfo.txt"
         jieba.load_userdict(mydict)  # dictbasicinfo是自定义词典，包含电影领域的专有词汇，避免被jieba错误切词
@@ -28,9 +27,9 @@ class question:
         for one_mode in question_mode_list:
             mode_id, mode_str = str(one_mode).strip().split(":")
             self.question_mode_dict[int(mode_id)] = str(mode_str)
-
         # 创建问题模板对象
         self.questiontemplate = QuestionTemplate()
+
 
     def dopredict(self, question):  # 调用分类模型判断问题类别
         model = joblib.load(self.path_info + "./model/question_classifier.model")

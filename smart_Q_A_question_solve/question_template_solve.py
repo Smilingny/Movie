@@ -26,6 +26,7 @@ class QuestionTemplate:
             2: self.get_movie_type,
             3: self.get_movie_introduction,
             4: self.get_movie_actorlist,
+            5: self.get_people_birthday,
             6: self.get_people_type_movie,
             7: self.get_people_movielist,
             8: self.get_people_movie_rating_larger,
@@ -34,9 +35,9 @@ class QuestionTemplate:
             11: self.get_pwithp_movielist,
             12: self.get_people_movienum,
             13: self.get_people_average_movierating,
-            20: self.get_genre_num,
-            21: self.get_rating_larger,
-            22: self.get_rating_smaller,
+            14: self.get_genre_num,
+            15: self.get_rating_larger,
+            16: self.get_rating_smaller,
         }
 
         self.graph = Query()
@@ -195,6 +196,25 @@ class QuestionTemplate:
         final_ans = movie_name + "由" + str(ans) + "等演员主演。"
         return final_ans
 
+    def get_people_birthday(self):  # 5:nm 出生日期
+        print("问题模板是【5:nm 出生日期")
+        name = str(self.get_name("nr")[0])
+        cql = f"match (p:Person) where p.name = '{name}' return p.birth"
+        print("cql查询语句是：{0}".format(cql))
+
+        ans = self.graph.search(cql)
+        if len(ans) > 0:
+            ans = str(ans[0])
+        else:
+            final_ans = self.get_noinfo_word(name)
+            return final_ans
+
+        ans = ans.replace(" ", "")  # 删去多余的空格
+        print("出生日期的查询结果是：{0}".format(ans))
+
+        final_ans = name + "出生于" + str(ans)
+        return final_ans
+
 
     def get_people_type_movie(self):  # 6:nr ng 电影作品
         print("问题模板是【6:nr ng 电影作品】")
@@ -241,7 +261,6 @@ class QuestionTemplate:
             people_name = str(self.get_name("nr")[0])  # 单个查询只能有一个nr
         else:
             people_name = peoplename
-
 
         cql = f"match (p:Person)-[]->(m:Movie) where p.name contains '{people_name}' return m.title"
         resultlist = list(self.graph.search(cql))
@@ -404,8 +423,7 @@ class QuestionTemplate:
 
         return final_ans
 
-
-    def get_genre_num(self):  # 20:ng 电影数量
+    def get_genre_num(self):  # 14:ng 电影数量
         print("问题模板是【20:ng 电影数量】")
         genrename = str(self.get_name("ng")[0])
         cql = f"match (m:Movie)-[r:is]->(g:Genre) where g.name='{genrename}' return m.title"
@@ -414,7 +432,7 @@ class QuestionTemplate:
         final_ans = genrename + "类型的电影有" + str(ans) + "部。"
         return final_ans
 
-    def get_rating_larger(self):  # 21:大于x 数量
+    def get_rating_larger(self):  # 15:大于x 数量
         print("问题模板是【21:大于x 数量】")
         x = self.get_num_x()
         cql = f"match (m:Movie) where m.rating>={x} return m.title"
@@ -423,7 +441,7 @@ class QuestionTemplate:
         final_ans = "评分大于" + str(x) + "分的电影共有" + str(ans) + "部。"
         return final_ans
 
-    def get_rating_smaller(self):  # 22:小于x 数量
+    def get_rating_smaller(self):  # 16:小于x 数量
         print("问题模板是【22:小于x 数量】")
         x = self.get_num_x()
         cql = f"match (m:Movie) where m.rating<={x} return m.title"
@@ -431,8 +449,6 @@ class QuestionTemplate:
         ans = len(ans)
         final_ans = "评分小于" + str(x) + "分的电影共有" + str(ans) + "部。"
         return final_ans
-
-
 
 
 if __name__ == "__main__":

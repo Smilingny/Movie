@@ -1,7 +1,3 @@
-# 原始问题的预处理
-# 自然语言表达的问题 --> 分类器能理解并正确分类的形式
-# 0627 新增问题类 【20-24】
-
 import os
 import re
 import jieba
@@ -98,43 +94,3 @@ class question:
 
         self.answer = self.query_template()  # 查询图数据库，得到答案
 
-
-if __name__ == "__main__":
-    # 查询答案测试【0-19】
-    questionlist = ["电影肖申克的救赎的评分是？",
-                    "盗梦空间的上映时间是",
-                    "星际穿越是什么类型的电影？",
-                    "霸王别姬主要讲什么故事",
-                    "阿甘正传有哪些演员出演？",
-                    "霸王别姬的导演是谁",
-                    "张国荣拍过哪些剧情电影？",
-                    "周星驰有哪些电影？",
-                    "张国荣拍的评分大于9的电影有哪些？",
-                    "张国荣拍的评分小于9的电影有哪些？",
-                    "赵文瑄演过哪些类型的电影？",
-                    "张国荣和张丰毅合作的电影有哪些？",
-                    "周星驰拍过多少电影？",
-                    "张国荣电影的平均分是多少",
-                    "肖申克的救赎排第几",
-                    "肖申克的救赎用什么语言拍的？",
-                    "盗梦空间看不看",
-                    "霸王别姬有多长？",
-                    "熔炉的主要奖项",
-                    "霸王别姬在哪国拍的"]
-
-    # 问题查询测试【20-24】
-    questionlist += ["爱情电影有多少",
-                     "大于9的有多少",
-                     "低于8的有多少",
-                     "有多少部是中国大陆制作的",
-                     "英语电影有多少"]
-
-    # questionlist = ["张国荣演了什么电影？"]
-    answerlist = []
-    for q in questionlist:
-        tmp = question()
-        tmp.question_process(q)
-        answerlist.append(tmp.answer)
-
-    for i in range(len(questionlist)):
-        print(questionlist[i], answerlist[i])

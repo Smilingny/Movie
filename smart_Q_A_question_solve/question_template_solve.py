@@ -451,11 +451,6 @@ class QuestionTemplate:
 
 
 if __name__ == "__main__":
-    # 进行cql查询测试
-    # tmp = Query()
-    # ans = tmp.search("match (m:movie) where m.name contains '肖申克的救赎' return m.score")
-    # print(ans)
-
     # 进行模板查询测试
     tmp = QuestionTemplate()
     ans = tmp.get_question_answer(['成龙/nr', '拍过/v', '的/uj', '电影/n', '都/d', '有/v', '哪些/r', '风格/n'], "10\tnr 电影类型")

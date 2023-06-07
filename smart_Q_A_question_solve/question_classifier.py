@@ -56,6 +56,7 @@ def get_tv():
 
 
 if __name__ == "__main__":
+    # 进行模型训练
     trainx, trainy = get_train_data()
     print(trainx, trainy)
     train_model_NB(trainx, trainy)

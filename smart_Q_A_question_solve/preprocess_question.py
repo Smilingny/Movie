@@ -10,8 +10,13 @@ from smart_Q_A_question_solve.question_template_solve import QuestionTemplate
 class question:
     def __init__(self):
         self.path_info = os.path.split(os.path.realpath(__file__))[0]  # python包位置
-        mydict = self.path_info + "/data/dictbasicinfo.txt"
-        jieba.load_userdict(mydict)  # dictbasicinfo是自定义词典，包含电影领域的专有词汇，避免被jieba错误切词
+        moviedict = self.path_info + "/data/movieinfo.txt"
+        peopledict = self.path_info + "/data/peopleinfo.txt"
+        genredict = self.path_info + "/data/genreinfo.txt"
+        jieba.load_userdict(moviedict)
+        jieba.load_userdict(peopledict)
+        jieba.load_userdict(genredict)
+
         self.init_config()
 
     def init_config(self):

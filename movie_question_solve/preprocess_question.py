@@ -3,8 +3,8 @@ import re
 import jieba
 from jieba import posseg
 import joblib
-from smart_Q_A_question_solve.question_classifier import get_tv
-from smart_Q_A_question_solve.question_template_solve import QuestionTemplate
+from movie_question_solve.question_classifier import get_tv
+from movie_question_solve.question_template_solve import QuestionTemplate
 
 
 class question:

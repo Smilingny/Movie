@@ -2,7 +2,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from smart_Q_A_question_solve.preprocess_question import question
+from movie_question_solve.preprocess_question import question
 # Create your views here.
 
 

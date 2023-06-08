@@ -181,11 +181,6 @@ class QuestionTemplate:
 
         ans = list(self.graph.search(cql, movie=movie_name))
         if len(ans) > 0:
-            n = len(ans)
-            for index in range(n):
-                blank_index = ans[index].find(" ")  # 空格的位置
-                if blank_index != -1:
-                    ans[index] = ans[index][:blank_index]  # 只返回中文信息
             ans = "、".join(ans)
         else:
             final_ans = self.get_noinfo_word(movie_name)
@@ -221,8 +216,8 @@ class QuestionTemplate:
         people_name = str(self.get_name("nr")[0])  # 单个查询只能有一个nr
         movietype = self.get_name("ng")  # 可以有多个类型限制
 
-        cql = f"match (p:Person)-[]->(m:Movie) where p.name = '{people_name}' return m.title"
-        resultlist = list(self.graph.search(cql))
+        cql = f"match (p:Person)-[]->(m:Movie) where p.name = $person return m.title"
+        resultlist = list(self.graph.search(cql, person=people_name))
 
         if len(resultlist) == 0:
             final_ans = self.get_noinfo_word(people_name)
@@ -232,8 +227,8 @@ class QuestionTemplate:
         result = []
         for movie_name in resultlist:
             movie_name = str(movie_name).strip()
-            cql = f"match (m:Movie)-[r:is]->(g) where m.title = '{movie_name}'return g.name"
-            tmp_type = self.graph.search(cql)
+            cql = f"match (m:Movie)-[r:is]->(g) where m.title = $movie return g.name"
+            tmp_type = self.graph.search(cql, movie=movie_name)
             if tmp_type == 0:  # 无类型信息
                 continue
             for t in tmp_type:
@@ -244,11 +239,6 @@ class QuestionTemplate:
             final_ans = self.get_noinfo_word(people_name)
             return final_ans
 
-        n = len(result)
-        for i in range(n):
-            blank_index = result[i].find(" ")
-            if blank_index != -1:
-                result[i] = result[i][:blank_index]
         ans = "、".join(result)
         print("电影人特定类型的电影作品查询结果是：".format(ans))
         typestr = str("、".join(movietype))
@@ -262,17 +252,11 @@ class QuestionTemplate:
         else:
             people_name = peoplename
 
-        cql = "match (p:Person)-[]->(m:Movie) where p.name contains $person return m.title"
+        cql = "match (p:Person)-[]->(m:Movie) where p.name = $person return m.title"
         resultlist = list(self.graph.search(cql, person=people_name))
         if len(resultlist) == 0:
             final_ans = self.get_noinfo_word(people_name)
             return final_ans, resultlist
-
-        n = len(resultlist)
-        for i in range(n):
-            blank_index = resultlist[i].find(" ")
-            if blank_index != -1:
-                resultlist[i] = resultlist[i][:blank_index]
 
         ans = "、".join(resultlist)
         print("电影人的电影作品查询结果是：{0}".format(ans))
@@ -290,12 +274,6 @@ class QuestionTemplate:
         if len(resultlist) == 0:
             final_ans = self.get_noinfo_word(people_name)
             return final_ans
-
-        n = len(resultlist)
-        for i in range(n):
-            blank_index = resultlist[i].find(" ")
-            if blank_index != -1:
-                resultlist[i] = resultlist[i][:blank_index]
 
         ans = "、".join(resultlist)
         print("符合评分限制的电影作品查询结果是：{0}".format(ans))
@@ -315,12 +293,6 @@ class QuestionTemplate:
         if len(resultlist) == 0:
             final_ans = self.get_noinfo_word(people_name)
             return final_ans
-
-        n = len(resultlist)
-        for i in range(n):
-            blank_index = resultlist[i].find(" ")
-            if blank_index != -1:
-                resultlist[i] = resultlist[i][:blank_index]
 
         ans = "、".join(resultlist)
         print("符合评分限制的电影作品查询结果是：{0}".format(ans))
@@ -371,12 +343,6 @@ class QuestionTemplate:
         if len(resultlist) == 0:
             final_ans = "小球的数据库里没有符合条件的电影信息，请重新输入查询内容！"
             return final_ans
-
-        n = len(resultlist)
-        for i in range(n):
-            blank_index = resultlist[i].find(" ")
-            if blank_index != -1:
-                resultlist[i] = resultlist[i][:blank_index]
 
         ans = "、".join(resultlist)
         print("合作电影查询结果是：{0}".format(ans))

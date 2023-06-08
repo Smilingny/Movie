@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>豆瓣电影Top250智能问答</title>
+	<title>电影信息智能问答</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -19,7 +19,7 @@
 	                    <div class="card no-border">
 	                        <div id="chat">
 	                            <form action="" method="GET" class="hidden">
-	                                <input data-conv-question="您好，我是您的豆瓣电影Top250信息百事通小球，请问有什么想要提问的？" name="first-question">
+	                                <input data-conv-question="您好，我是您的电影百事通小球，请问有什么想要提问的？" name="first-question">
 	                            </form>
 	                        </div>
 	                    </div>
@@ -48,7 +48,7 @@
             		convState.current.next = convState.newState({
 							type: 'input',
 							name: 'dynamic-question-'+count,
-							questions: ['您好，我是您的豆瓣电影Top250信息百事通小球，请问有什么想要提问的？'],
+							questions: ['您好，我是您的电影信息百事通小球，请问有什么想要提问的？'],
 							});
 					//emulating random response time (100-600ms)
 					setTimeout(ready, Math.random()*500+100);

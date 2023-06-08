@@ -1,4 +1,4 @@
-# 豆瓣top250智能问答系统
+# 电影信息智能问答系统
 ## 环境准备
 ### 图数据库neo4j
 知识图谱数据以CSV格式存储在`/smart_Q_A_queation_solve/data/import.zip`中

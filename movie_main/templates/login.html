@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="../../static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>登陆</h1>
+    {% if error_message %}
+    <p class="error">{{ error_message }}</p>
+    {% endif %}
+    <div class="form-div">
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="account">账号</label>
+                <input type="text" name="account" id="account" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" name="password" id="password" class="form-control">
+            </div>
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary">登陆</button>
+                <a href="{% url 'register' %}" class="btn btn-primary" style="background: #06c5a6">注册</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

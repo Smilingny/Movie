@@ -18,9 +18,16 @@ from movie_main.views import *
 from django.urls import path
 
 from movie_main.views import *
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main),
-    path('main/', main),
+    path('', index),
+    # path('main/', main),
+    path('index/', index, name='index'),
     path('getreply/', getreply, name='getreply'),
+    path('login/', login, name='login'),
+    path('register/', register, name='register'),
+    path('download/', download, name='download'),
+    path('delete_record/', delete_record, name='delete_record'),
+
 ]

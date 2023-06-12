@@ -5,4 +5,3 @@
 
 使用前先将数据导入neo4j中，再在`question_template_solve.py`中修改数据库信息
 
-基于：https://github.com/wonderabc/Smart-Q-A

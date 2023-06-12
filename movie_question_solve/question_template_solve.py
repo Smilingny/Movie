@@ -12,7 +12,6 @@ class Query:  # 连接图数据库
     def search(self, cql, **arguments):  # 运行查询语句
         search_result = []
         find_rela = self.graph.run(cql, arguments)
-        # list(find_rela) 形如 [Record({'m.score': '9.7'})]
         for i in find_rela:
             search_result.append(i.items()[0][1])
         return search_result
@@ -389,7 +388,7 @@ class QuestionTemplate:
         return final_ans
 
     def get_genre_num(self):  # 14:ng 电影数量
-        print("问题模板是【20:ng 电影数量】")
+        print("问题模板是【14:ng 电影数量】")
         genrename = str(self.get_name("ng")[0])
         cql = f"match (m:Movie)-[r:is]->(g:Genre) where g.name='{genrename}' return m.title"
         ans = self.graph.search(cql)
@@ -398,7 +397,7 @@ class QuestionTemplate:
         return final_ans
 
     def get_rating_larger(self):  # 15:大于x 数量
-        print("问题模板是【21:大于x 数量】")
+        print("问题模板是【15:大于x 数量】")
         x = self.get_num_x()
         cql = f"match (m:Movie) where m.rating>={x} return m.title"
         ans = self.graph.search(cql)
@@ -407,7 +406,7 @@ class QuestionTemplate:
         return final_ans
 
     def get_rating_smaller(self):  # 16:小于x 数量
-        print("问题模板是【22:小于x 数量】")
+        print("问题模板是【16:小于x 数量】")
         x = self.get_num_x()
         cql = f"match (m:Movie) where m.rating<={x} return m.title"
         ans = self.graph.search(cql)
